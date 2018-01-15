@@ -93,18 +93,25 @@ app.get('/api/albums', function api_index (req, res){
     res.json(albums);
   });
 });
+
 // post
-// app.post('/api/albums', function (req, res) {
-//   db.Album.find(function (err, albums) {
-//     if (err) {
-//       console.log('index error:' + err);
-//       res.sendStatus(500);
-//     }
-//     res.json(albums);
-//   });
-// });
+app.post('/api/albums', function albumCreate(req, res) {
+  console.log('body', req.body);
+
+  // split at comma and remove and trailing space
+  var genres = req.body.genres.split(',').map(function(item) { return item.trim(); } );
+  req.body.genres = genres;
+
+  db.Album.create(req.body, function(err, album) {
+    if (err) { console.log('error', err); }
+    console.log(album);
+    res.json(album);
+  });
+
+});
+
 //get one album
-app.get('/api/:id', function (req, res) {
+app.get('/api/albums/:id', function (req, res) {
   //get album id from params
   let albumId = req.params.id;
 
