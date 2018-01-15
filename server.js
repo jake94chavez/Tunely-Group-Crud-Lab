@@ -94,21 +94,19 @@ app.get('/api/albums', function api_index (req, res){
   });
 });
 
-// post
-app.post('/api/albums', function albumCreate(req, res) {
-  console.log('body', req.body);
 
-  // split at comma and remove and trailing space
-  var genres = req.body.genres.split(',').map(function(item) { return item.trim(); } );
-  req.body.genres = genres;
-
-  db.Album.create(req.body, function(err, album) {
-    if (err) { console.log('error', err); }
-    console.log(album);
-    res.json(album);
+/////////////////////////////////////
+app.post('/api/albums', (req, res) => {
+  let album = new db.Album(req.body);
+  album.save((err, createdAlbumObject) => {  //.save, saves the info
+    if (err) {
+        response.status(500).send(err);
+    }                                        //numeric codes that tie in with the success and error in ajax
+    response.status(200).send(createdAlbumObject);
   });
+})
+/////////////////////////////////////
 
-});
 
 //get one album
 app.get('/api/albums/:id', function (req, res) {
