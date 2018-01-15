@@ -48,7 +48,7 @@ $(document).ready(function() {
 renderAlbum(sampleAlbums)
 })
 
-//////////MUCHO help from Lily. Could not have done this without her
+//////////MUCHO help from Lily. Could not have done this without her/
 $('#addNewAlbum').on('submit', (e) => { //event handler for button
   e.preventDefault(); //prevent default action of event from being triggered
   $.ajax({
@@ -56,7 +56,7 @@ $('#addNewAlbum').on('submit', (e) => { //event handler for button
     url: '/api/albums', //what allows the ajax and post to communicate
     data: { //data is the "body" that Req.body refers to on server file
       name: e.currentTarget["1"].value,
-      artistName: e.currentTarget["2"].value,   /
+      artistName: e.currentTarget["2"].value,   
       releaseDate: e.currentTarget["3"].value,
       genres: e.currentTarget["4"].value.split(',')
     },
@@ -65,13 +65,14 @@ $('#addNewAlbum').on('submit', (e) => { //event handler for button
   });
 });
 const newAlbumSuccess = (json)=>{  //renders json format
-      $('#myform')[0].reset();  //resets the form to blank inputs
+      $('#album-form')[0].reset();  //resets the form to blank inputs
       allAlbums.push(json); //new album pushed to allAlbums array as json
 }
 
 const newAlbumError = ()=> {
      console.log('Error, try again')
 }
+////////////////////////////////////////////////////////
 // this function takes a single album and renders it to the page
 function renderAlbum(album) {
   console.log('rendering album:', album);
