@@ -10,33 +10,34 @@
 
  */
 
-/* hard-coded data! */
-var sampleAlbums = [];
-sampleAlbums.push({
-            artistName: 'Led Zeppelin',
-            name: 'Led Zeppelin IV',
-            releaseDate: 'November 8, 1971',
-            genres: ['Rock', 'Metal']
-           });
-sampleAlbums.push({
-            artistName: 'NoBunny',
-            name: 'First Blood',
-            releaseDate: 'September 21, 2010',
-            genres: ['Garage Rock, Punk Rock, Power Pop']
-           });
-sampleAlbums.push({
-             artistName: 'Juno Reactor',
-             name: 'Shango',
-             releaseDate: '2000, October 9',
-             genres: [ 'electronic', 'goa trance', 'tribal house' ]
-           });
-sampleAlbums.push({
-             artistName: 'Philip Wesley',
-             name: 'Dark Night of the Soul',
-             releaseDate: '2008, September 12',
-             genres: [ 'piano' ]
-           });
-/* end of hard-coded data */
+ /* hard-coded data! */
+ var sampleAlbums = [];
+ sampleAlbums.push({
+              artistName: 'Ladyhawke',
+              name: 'Ladyhawke',
+              releaseDate: '2008, November 18',
+              genres: [ 'new wave', 'indie rock', 'synth pop' ]
+            });
+ sampleAlbums.push({
+              artistName: 'The Knife',
+              name: 'Silent Shout',
+              releaseDate: '2006, February 17',
+              genres: [ 'synth pop', 'electronica', 'experimental' ]
+            });
+ sampleAlbums.push({
+              artistName: 'Juno Reactor',
+              name: 'Shango',
+              releaseDate: '2000, October 9',
+              genres: [ 'electronic', 'goa trance', 'tribal house' ]
+            });
+ sampleAlbums.push({
+              artistName: 'Philip Wesley',
+              name: 'Dark Night of the Soul',
+              releaseDate: '2008, September 12',
+              genres: [ 'piano' ]
+            });
+ /* end of hard-coded data */
+
 
 
 
@@ -46,9 +47,8 @@ $(document).ready(function() {
 // sampleAlbums.forEach(renderAlbum)////got rid of because it was rendering all albums multiple times, for a total of
 //16 albums instead of 4
 renderAlbum(sampleAlbums)
-})
 
-//////////MUCHO help from Lily. Could not have done this without her
+//////////MUCHO help from Lily. Could not have done this without her/
 $('#addNewAlbum').on('submit', (e) => { //event handler for button
   e.preventDefault(); //prevent default action of event from being triggered
   $.ajax({
@@ -56,7 +56,7 @@ $('#addNewAlbum').on('submit', (e) => { //event handler for button
     url: '/api/albums', //what allows the ajax and post to communicate
     data: { //data is the "body" that Req.body refers to on server file
       name: e.currentTarget["1"].value,
-      artistName: e.currentTarget["2"].value,   /
+      artistName: e.currentTarget["2"].value,
       releaseDate: e.currentTarget["3"].value,
       genres: e.currentTarget["4"].value.split(',')
     },
@@ -64,14 +64,17 @@ $('#addNewAlbum').on('submit', (e) => { //event handler for button
     error: newAlbumError
   });
 });
+});
 const newAlbumSuccess = (json)=>{  //renders json format
-      $('#myform')[0].reset();  //resets the form to blank inputs
-      allAlbums.push(json); //new album pushed to allAlbums array as json
+  $("input[type=text], textarea").val("");
+ //resets the form to blank inputs
+      sampleAlbums.push(json); //new album pushed to allAlbums array as json
 }
 
 const newAlbumError = ()=> {
      console.log('Error, try again')
 }
+////////////////////////////////////////////////////////
 // this function takes a single album and renders it to the page
 function renderAlbum(album) {
   console.log('rendering album:', album);

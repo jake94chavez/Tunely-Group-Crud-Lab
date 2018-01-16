@@ -23,6 +23,9 @@ app.use(express.static(__dirname + '/public'));
 // middleware
 app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded( {
+  extended: true
+}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
@@ -97,12 +100,14 @@ app.get('/api/albums', function api_index (req, res){
 
 /////////////////////////////////////
 app.post('/api/albums', (req, res) => {
+  console.log('body', req.body);
+
   let album = new db.Album(req.body);
   album.save((err, createdAlbumObject) => {  //.save, saves the info
     if (err) {
-        response.status(500).send(err);
+        res.status(500).send(err);
     }                                        //numeric codes that tie in with the success and error in ajax
-    response.status(200).send(createdAlbumObject);
+    res.status(200).send(createdAlbumObject);
   });
 })
 /////////////////////////////////////
