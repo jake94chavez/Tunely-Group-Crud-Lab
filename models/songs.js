@@ -6,6 +6,6 @@ var SongSchema = new Schema ({
     trackNumber: Number
 });
 
-var Song = mongoose.model('Songs', SongsSchema);
+var Songs = mongoose.model('Songs', SongsSchema);
 
 module.exports = Songs;
